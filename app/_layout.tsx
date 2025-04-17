@@ -1,14 +1,30 @@
-import { Stack } from "expo-router";
+import { Stack } from "expo-router"; 
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from 'expo-status-bar';
+import { ThemeProvider, useTheme } from '../Context/themeContext.js'
+function LayoutContent() {
+  const { theme } = useTheme();
 
-export default function RootLayout() {
-  return(
-    <SafeAreaProvider>
-    <SafeAreaView style={{flex:1}}>
-      <Stack screenOptions={{headerShown:false}}>
-        <Stack.Screen name="index" options={{headerShown:false}}/>
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
+      <StatusBar style={theme.statusBar} backgroundColor={theme.background} />
+      <Stack screenOptions={{
+        headerShown: false,
+        navigationBarColor: theme.background,
+        statusBarColor: theme.background,
+      }}>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>
     </SafeAreaView>
-</SafeAreaProvider>
-  ) ;
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <SafeAreaProvider>
+      <ThemeProvider>
+        <LayoutContent />
+      </ThemeProvider>
+    </SafeAreaProvider>
+  );
 }
