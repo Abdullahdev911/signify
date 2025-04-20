@@ -1,10 +1,11 @@
 import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useTheme } from '../Context/themeContext.js';
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Index() {
   const { theme } = useTheme();
+  const router = useRouter();
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
@@ -21,11 +22,15 @@ export default function Index() {
         source={require('../assets/images/Discussion-bro.png')}
         style={styles.heroImage}
       />
-
-      <TouchableOpacity style={[styles.emailBtn, { backgroundColor: theme.primary }]}>
+      
+          
+      <TouchableOpacity style={[styles.emailBtn, { backgroundColor: theme.primary }]} onPress={()=> router.push('/sign-up')}>
         <Ionicons name='mail' color={theme.background} size={20} style={styles.icon} />
-        <Text style={[styles.emailText, { color: theme.background }]}>Continue With Email</Text>
+        <Text style={[styles.emailText, { color: theme.background }]}>
+          Continue With Email
+          </Text>
       </TouchableOpacity>
+          
 
       <TouchableOpacity style={[styles.googleBtn, { backgroundColor: theme.text }]}>
         <Ionicons name="logo-google" color={theme.background} size={20} style={styles.icon} />
@@ -50,8 +55,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   tagline: {
-    fontWeight: '900',
-    fontFamily: 'SpaceMono',
+    fontWeight: '600',
+    fontFamily: 'OpenSans',
     fontSize: 24,
     textAlign: 'left',
     marginTop: 10,
@@ -76,6 +81,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 16,
     marginLeft: 8,
+    fontFamily:'OpenSans'
   },
   googleBtn: {
     width: '100%',
@@ -87,6 +93,7 @@ const styles = StyleSheet.create({
   },
   googleText: {
     fontWeight: '600',
+    fontFamily: 'OpenSans',
     fontSize: 16,
     marginLeft: 8,
   },
