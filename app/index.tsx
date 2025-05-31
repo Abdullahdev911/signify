@@ -1,11 +1,41 @@
 import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { Link, Redirect, useRouter } from "expo-router";
 import { useTheme } from '../Context/themeContext.js';
 import { Ionicons } from "@expo/vector-icons";
+import { useAuth, useSSO } from '@clerk/clerk-expo'
+import { useCallback } from "react";
+import * as AuthSession from 'expo-auth-session';
+
 
 export default function Index() {
+  const {isSignedIn} = useAuth();
   const { theme } = useTheme();
   const router = useRouter();
+  const { startSSOFlow } = useSSO()
+  
+  const onPress = useCallback(async () => {
+  try {
+    const redirectUrl = AuthSession.makeRedirectUri({ native: 'signify://' });
+
+    const { createdSessionId, setActive } = await startSSOFlow({
+      strategy: 'oauth_google',
+      redirectUrl,
+    });
+
+    if (createdSessionId) {
+      await setActive!({ session: createdSessionId });
+      router.replace('/(tabs)/home');
+    }
+  } catch (err) {
+    console.error('Google Sign-In error:', JSON.stringify(err, null, 2));
+  }
+}, []);
+
+
+  if(isSignedIn){
+      return <Redirect href={'/(tabs)/home'}/>
+    }
+
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
@@ -32,7 +62,7 @@ export default function Index() {
       </TouchableOpacity>
           
 
-      <TouchableOpacity style={[styles.googleBtn, { backgroundColor: theme.text }]}>
+      <TouchableOpacity style={[styles.googleBtn, { backgroundColor: theme.text }]} onPress={onPress}>
         <Ionicons name="logo-google" color={theme.background} size={20} style={styles.icon} />
         <Text style={[styles.googleText, { color: theme.background }]}>Continue With Google</Text>
       </TouchableOpacity>

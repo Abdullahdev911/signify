@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/Signify-logo.png",
-    "scheme": "myapp",
+    "scheme": "signify",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/Signify-logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.abdu911.signify"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "224391e5-233b-4502-a0af-90d996e90c57"
+      }
     }
   }
 }

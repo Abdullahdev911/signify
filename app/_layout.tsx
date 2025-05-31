@@ -1,13 +1,15 @@
-import { Stack } from "expo-router"; 
+import { Redirect, Stack, useRouter } from "expo-router"; 
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider, useTheme } from '../Context/themeContext.js'
 import { ClerkProvider } from '@clerk/clerk-expo'
 import { tokenCache } from '@clerk/clerk-expo/token-cache'
 import { useFonts } from "expo-font";
+import { useAuth } from "@clerk/clerk-expo";
 
 function LayoutContent() {
   const { theme } = useTheme();
+  const {isSignedIn} = useAuth();
   const [loaded] = useFonts({
     'OpenSans': require('../assets/fonts/OpenSans.ttf'), 
   });
@@ -16,6 +18,7 @@ function LayoutContent() {
     return null; 
   }
 
+  
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
       <StatusBar style={theme.statusBar} backgroundColor={theme.background} />
@@ -26,6 +29,7 @@ function LayoutContent() {
           statusBarColor: theme.background,
         }}
       >
+  
         <Stack.Screen name="index" options={{ headerShown: false }} />
 
       </Stack>
