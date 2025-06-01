@@ -12,7 +12,7 @@ const features = [
     title: 'Gesture-to-Speech/Text',
     description: 'Convert sign language to spoken or written words.',
     icon: 'hand-left-outline',
-    screen: '/search', 
+    screen: '/camera', 
   },
   {
     id: '2',
@@ -20,6 +20,13 @@ const features = [
     description: 'Translate text into sign language gestures.',
     icon: 'text-outline',
     screen: '/search', 
+  },
+   {
+    id: '3',
+    title: 'Gesture Quiz',
+    description: 'Test your knowledge of sign language gestures.',
+    icon: 'help-circle-outline',
+    screen: '/quiz',  
   },
 ];
 
@@ -37,8 +44,9 @@ export default function Home() {
       <StatusBar style="auto" />
 
       <Text style={[{ color: theme.text }, styles.heading]}>
-        Welcome {user && user.firstName}
+        Welcome , {user && user.firstName}
       </Text>
+        {console.log(user)}
 
       <FlatList
         data={features}

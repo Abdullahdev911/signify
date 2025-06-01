@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/Signify-logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.abdu911.signify"
+      "package": "com.abdu911.signify",
+      "permissions": ["CAMERA"]
     },
     "web": {
       "bundler": "metro",
@@ -33,7 +34,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      [
+      "react-native-vision-camera",
+      {
+        "cameraPermissionText": "Signify needs access to your Camera."
+      }
+    ]
     ],
     "experiments": {
       "typedRoutes": true

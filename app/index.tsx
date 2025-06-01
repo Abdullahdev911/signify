@@ -8,29 +8,39 @@ import * as AuthSession from 'expo-auth-session';
 
 
 export default function Index() {
-  const {isSignedIn} = useAuth();
+  const {isSignedIn,isLoaded} = useAuth();
   const { theme } = useTheme();
   const router = useRouter();
   const { startSSOFlow } = useSSO()
   
-  const onPress = useCallback(async () => {
+ const onPress = useCallback(async () => {
   try {
-    const redirectUrl = AuthSession.makeRedirectUri({ native: 'signify://' });
+    const redirectUrl = AuthSession.makeRedirectUri({ native: 'signify://',useProxy: true});
+    console.log('Redirect URL:', redirectUrl);
 
     const { createdSessionId, setActive } = await startSSOFlow({
       strategy: 'oauth_google',
-      redirectUrl,
+      // redirectUrl,
     });
 
+    console.log('Session ID:', createdSessionId);
+
     if (createdSessionId) {
-      await setActive!({ session: createdSessionId });
-      router.replace('/(tabs)/home');
+      await setActive({ session: createdSessionId });
+      console.log('Session active, navigating...');
+      router.replace('/home');
+    } else {
+      console.warn('No session ID returned');
     }
   } catch (err) {
-    console.error('Google Sign-In error:', JSON.stringify(err, null, 2));
+    console.error('SSO Error:', err);
   }
 }, []);
 
+
+  if (!isLoaded){
+    return null;
+  } 
 
   if(isSignedIn){
       return <Redirect href={'/(tabs)/home'}/>
