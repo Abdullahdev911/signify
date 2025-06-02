@@ -28,6 +28,13 @@ const features = [
     icon: 'help-circle-outline',
     screen: '/quiz',  
   },
+  {
+    id: '4',
+    title: 'Ask-ASL (Chat)',
+    description: 'Ask anything about sign language.',
+    icon: 'chatbubble-ellipses-outline',
+    screen: '/chat',
+  },
 ];
 
 export default function Home() {
