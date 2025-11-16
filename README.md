@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/images/Signify-logo.png" alt="project logo" width="200"/>
+</p>
+
 # **Signify – Real-Time Sign Language Interpreter**
 
 Signify is a mobile application built to bridge the communication gap between the Deaf/Hard-of-Hearing community and hearing individuals. It provides **real-time ASL gesture recognition**, **text-to-gesture translation**, **gesture quizzes**, and an **AI-powered ASL assistant** — all wrapped in a modern React Native experience.
